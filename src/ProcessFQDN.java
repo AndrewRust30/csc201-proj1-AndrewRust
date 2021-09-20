@@ -19,12 +19,25 @@ public class ProcessFQDN {
      * This is the main method
      * @param args command line arguments (1 file name)
      */
-    public static void main(String[] args){
-
+    public static void main(String[] args) throws FileNotFoundException { // add file not found exception
+        /*
         if(!argsOK(args))
             System.exit(1);
         readNameFile(args[0]);
-        displayNameInfo();
+        */
+        //readNameFile("src/names.txt"); // read input file
+        //displayNameInfo();
+        Scanner in = new Scanner(new File("src/names.txt"));
+        DLinkedList<String> list = new DLinkedList<String>();
+        while (in.hasNext()){
+            list.addFirst(in.nextLine());
+        }
+        System.out.println(list.size());
+        /*
+        for (String item: item){ //no idea but this is an enhanced for loop
+            System.out.println("item" + item);
+        }
+        */
     }
 
 
@@ -35,7 +48,6 @@ public class ProcessFQDN {
      */
     static void readNameFile(String fileName){
         System.out.print("Processing " + fileName);
-
         // reading dictionary file
         try {
             Scanner input = new Scanner(new File(fileName));
