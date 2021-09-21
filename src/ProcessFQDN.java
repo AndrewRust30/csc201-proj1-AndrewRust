@@ -5,13 +5,13 @@
  * Useage:
  *   java ProcessFQDN url.txt
  *
- * @author Nirre Pluf {@literal }
- * @version 0.2, Sept. 5, 2021
+ * @author Andrew Rust {@rustac19@wfu.edu }
+ * @version 0.1, Sept. 20, 2021
  */
 
 import java.io.*;
 import java.util.Scanner;
-
+import java.util.regex.*;
 
 public class ProcessFQDN {
 
@@ -19,58 +19,84 @@ public class ProcessFQDN {
      * This is the main method
      * @param args command line arguments (1 file name)
      */
-    public static void main(String[] args) throws FileNotFoundException { // add file not found exception
-        /*
+    public static void main(String[] args) {
+
         if(!argsOK(args))
             System.exit(1);
         readNameFile(args[0]);
-        */
-        //readNameFile("src/names.txt"); // read input file
-        //displayNameInfo();
-        Scanner in = new Scanner(new File("src/names.txt"));
-        DLinkedList<String> list = new DLinkedList<String>();
-        while (in.hasNext()){
-            list.addFirst(in.nextLine());
-        }
-        System.out.println(list.size());
-        /*
-        for (String item: item){ //no idea but this is an enhanced for loop
-            System.out.println("item" + item);
-        }
-        */
+
+
+        //for (String : test.iterator().hasNext())
+        //{ System.out.println("value" + test);} ;
     }
-
-
     /**
      *  This method reads (and eventually stores) FQDN and 2LD in the fqdn file
      *
      *  @param  filename is the fqdn filename (command line argument)
      */
     static void readNameFile(String fileName){
-        System.out.print("Processing " + fileName);
+        System.out.println("Processing " + fileName);
         // reading dictionary file
+        int fullyQDN = 0;// integer of the number of fully qualified domain names
+        DLinkedList<String> FQDNList = new DLinkedList<String>(); //DLinked list for each of the different fully qualified domain names
+        DLinkedList<String> TwoLDList = new DLinkedList<String>();
+        DLinkedList<String> TLDList = new DLinkedList<String>();
+
+        DLinkedList<String> list = new DLinkedList<String>(); //Added DLinkedList object called 'list' to store values of the input file
+
         try {
             Scanner input = new Scanner(new File(fileName));
             while (input.hasNext()) {
                 String line = input.nextLine();
                 System.out.println("debug: " + line);
-            }
+                list.addFirst(line);// populate 'list' DLinkedList array
+                }
             input.close();
         }
         catch (FileNotFoundException e) {
             System.out.println("Error in opening " + fileName);
             System.exit(1);
         }
-    }
+        int totalFQNS = 0;
+        int uniqueFQDNs = 0;
+        int TwoLDs = 0;
+        int TLDs = 0;
+        String regexFQDN = "^([A-Za-z]{1, 63}\\.)+[A-Za-z]{1, 63}\\.)+[A-Za-z]{1, 63}$";
+        String regex2DL = "^([A-Za-z]{1, 63}\\.)+[A-Za-z]{1, 63}$";
+        for (String domainName : list){
 
+            if ((domainName.contains("."))){
+                domainName.split()
+            } else if ()
+                domainName
+        }
+
+        for (String string : list)
+            System.out.println(string);
+    }
+    public void analyseFile(){
+
+    }
 
     /**
      *  This method displays the stats and FQDN and 2LD found in the file
      *
-     *  @param  the lists...
+     *  @param DLinkedLists for each of the three printable collections (FQDNs, 2LDs, and TLDs)
      */
-    static void displayNameInfo() {
-        System.out.println("displayName: stub");
+    static void displayNameInfo(DLinkedList FDDNs, DLinkedList TwoLDs, DLinkedList TLDs) {
+
+        System.out.print("Unique FQDNs: ");
+        for (Object string: FDDNs){
+            System.out.print(FDDNs.iterator().next() + " ");
+        }
+        System.out.print("Unique 2LDs:  ");
+        for (Object string: TwoLDs){
+            System.out.print(TwoLDs.iterator().next() + " ");
+        }
+        System.out.print("Unique TLDs:  ");
+        for (Object string: TLDs){
+            System.out.print(TLDs.iterator().next() + " ");
+        }
     }
 
 
@@ -88,5 +114,28 @@ public class ProcessFQDN {
         }
         return true;
     }
+/* DEAD Code
+    /**
+     * Method using regular expression in java to check if domain name is legitimate or matches the given criteria
+     * @param domain is the domain name given from the DLinkedList object 'list'
+     * @return int
 
+    static int domainValidation(String domain){
+        String regex2DL = "^([A-Za-z]{1,63}\\.)+[A-Za-z]{1,63}$"; // regular expression for 2LDs
+        Pattern pattern2DL = Pattern.compile(regex2DL);
+        Matcher check2Dl = pattern2DL.matcher(domain);
+
+        String regexFQDN = "^([A-Za-z]{1,63}\\.)+[A-Za-z]{1,63}\\.)+[A-Za-z]{1,63}$"; // regular expression for FQDN
+        Pattern patternFQDN = Pattern.compile(regexFQDN);
+        Matcher checkFQDN = patternFQDN.matcher(domain);
+
+        if (checkFQDN.matches()){
+            return 2;
+        } else if (check2Dl.matches()){
+            return 1;
+        } else{
+            return 0;
+        }
+    }
+*/
 }

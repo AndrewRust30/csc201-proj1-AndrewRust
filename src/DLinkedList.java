@@ -1,22 +1,36 @@
 import java.util.*;
 
+/**
+ *  Doubly Linked List Class implements Iterable and List classes.
+ * @param <T>
+ */
 public class DLinkedList<T> implements List<T>, Iterable<T> {
+    /**
+     * This method overrides the addfirst method of the List class and allows the user to add an element to their DLinkedList
+     * @param item
+     */
     @Override
     public void addFirst(T item) { //This adds an item to the front of the DLinked List
-        head = new Node(item, head, null);
-        Node second = head.next;
-        if (second != null){ // at least one node exits if this is not 'null'
-            second.prev = head; // thus the new item becomes the first item and the previous to the first become the second
-        } else {
-            tail = head; //otherwise both head and tail point to the first node
+        Node newNode = new Node(item, head, null);
+        if (head == null){ //if the list is empty
+            tail = head = newNode; //then both head and tail point to the first node ('newNode')
+        } else{ // otherwise head moves to second spot and new node becomes head
+            head = head.next;
+            newNode = head;
         }
     }
 
+    /**
+     * This method checks whether an 'item' exists within an object of a generic class, this is again an override of the List class method
+     * @param item
+     * @return Boolean of whether or not the item exists in the object
+     */
     @Override
     public boolean contains(T item) {
-        Boolean result = null; //creating variable for result of search
-        while (iterator().hasNext()){ //checking if iterator has a next item
-            if (iterator().next() == item){ //checking if next item is in face the item in question
+        Boolean result = false; //creating variable for result of search
+        Iterator<T> it = iterator(); // creating 'iterator' object
+        while (it.hasNext()){ //checking if iterator has a next item
+            if (it.next() == item){ //checking if next item is in face the item in question
                 result = true; //if it is, set return var to 'true'
             }
             else {
@@ -26,27 +40,86 @@ public class DLinkedList<T> implements List<T>, Iterable<T> {
         return result; //return statement
     }
 
+    /**
+     * This method returns the size of the list, override of the list class method
+     * @return int of the size of the list
+     */
     @Override
     public int size() {
         int count = 0; //creating count var to be size of DLinkedList
-        while(iterator().hasNext()){ //while the iterator has the next value...
+        Iterator<T> it = iterator(); // creating 'iterator' object
+        while(it.hasNext()){ //while the iterator has the next value...
             count++; //add 1 to the count
         }
         return count; //once the iterator has no more values, return count to output the size of the list
     }
 
+    /**
+     * This method checks whether a list is empty or not
+     * @return Boolean if list is empty or not
+     */
     @Override
     public boolean isEmpty() {
-        if (iterator().hasNext() == false){//if the iterator does not have a next value, then the list is empty, thus, we return true
+        Iterator<T> it = iterator(); // creating 'iterator' object
+        if (it.hasNext()){//if the iterator does not have a next value, then the list is empty, thus, we return true
             return true;
         } else{ //otherwise, the list is not empty and we return false
             return false;
         }
     }
 
+    /**
+     * overrides iterator method of Iterator class method
+     * @return object of T class from Iterator
+     */
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return new ListIterator<T>() {
+            @Override
+            public boolean hasNext() {
+                return false;
+            }
+
+            @Override
+            public T next() {
+                return null;
+            }
+
+            @Override
+            public boolean hasPrevious() {
+                return false;
+            }
+
+            @Override
+            public T previous() {
+                return null;
+            }
+
+            @Override
+            public int nextIndex() {
+                return 0;
+            }
+
+            @Override
+            public int previousIndex() {
+                return 0;
+            }
+
+            @Override
+            public void remove() {
+
+            }
+
+            @Override
+            public void set(T t) {
+
+            }
+
+            @Override
+            public void add(T t) {
+
+            }
+        };
     }
 
     private class Node{
@@ -60,7 +133,7 @@ public class DLinkedList<T> implements List<T>, Iterable<T> {
             this.prev = prev;
         }
     }
-
+    T data;
     Node head;
     Node tail;  
 
