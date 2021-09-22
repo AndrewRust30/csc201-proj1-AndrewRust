@@ -28,20 +28,24 @@ public class DLinkedList<T> implements List<T>, Iterable<T> {
      */
     @Override
     public boolean contains(T item) {
-        Boolean result = false; //set result var Boolean to be false
-        if (head == null) { //if the head is empty, the list is empty, so it doesnt contain anything, so return false
+        if (head == null) { //if the head is empty, the list is empty, so it does not contain anything, so return false
             return false;
         } else if (head.data.equals(item)) { //if the first value is the same as the value being searched for then the method returns true
-            result = true;
+            return true;
         }
         Node temp = head; // temporary node
         while (temp.next != null) { // iterate through to check all data if there is any that match the inputted item
-            if (temp.data == item) {
-                result = true;
+            if (temp.data.equals(item)) {
+                return true;
+            } else if (temp.next.data.equals(item)) {
+                return true;
+            } else  if (temp.prev != null && temp.prev.data.equals((item))){
+                return true;
             }
             temp = temp.next;
         }
-        return result;
+
+        return false;
     }
 
     /**
@@ -52,8 +56,9 @@ public class DLinkedList<T> implements List<T>, Iterable<T> {
     public int size() {
         int count = 0; //creating count var to be size of DLinkedList
          // creating 'iterator' object
-        while(iterator().hasNext()){ //while the iterator has the next value...
+        while(head != null){ //while the iterator has the next value...
             count++; //add 1 to the count
+            head = head.next;
         }
         return count; //once the iterator has no more values, return count to output the size of the list
     }
@@ -118,7 +123,14 @@ public class DLinkedList<T> implements List<T>, Iterable<T> {
     }
     @Override
     public String toString() {
-        return data.toString();
+        return head.toString();
+    }
+    public void print() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
     }
 }
 

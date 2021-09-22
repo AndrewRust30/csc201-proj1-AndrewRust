@@ -4,6 +4,6 @@ cs.wfu.edu
 wfu.edu
 .edu
 google.com
-google.com
+GOOGLE.COM
 dns.google.com
 com

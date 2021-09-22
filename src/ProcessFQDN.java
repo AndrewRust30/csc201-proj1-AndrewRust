@@ -69,6 +69,7 @@ public class ProcessFQDN {
             input.close();
             // Print statements that meet desired formatting
             System.out.println("Found " + numFQDNs + " FQDNs, " + uniqueFQDNs + " unique FQDNs, " + unique2LDs + " unique 2LDs, "+ uniqueTLDs + " unique TLDs");
+            System.out.println();
             displayNameInfo(listFQDN, list2LDs,listTLDs); // call method to print list of items
         }
         catch (FileNotFoundException e) {
@@ -134,10 +135,26 @@ public class ProcessFQDN {
      *  @param DLinkedLists for each of the three printable collections (FQDNs, 2LDs, and TLDs)
      */
 
-    static void displayNameInfo(DLinkedList<String> FDDNs, DLinkedList<String> TwoLDs, DLinkedList<String> TLDs) {
+    static void displayNameInfo(DLinkedList<String> FQDNs, DLinkedList<String> TwoLDs, DLinkedList<String> TLDs) {
 
-        System.out.print("Unique FQDNs: "); // enhanced for loop to print out each array, print statements are used according to desired formatting of assignment
-        for (String data: FDDNs){
+
+
+        // used overriden print method to print elements of the lists
+        System.out.print("Unique FQDNs: ");
+        FQDNs.print();
+        System.out.println();
+        System.out.print("Unique 2LDs:  ");
+        TwoLDs.print();
+        System.out.println();
+        System.out.print("Unique TLDs:  ");
+        TLDs.print();
+        System.out.println();
+
+
+
+        // enhanced for loop to print out each array, print statements are used according to desired formatting of assignment
+        /* This Section of enhanced for loops did not work in printing each item in the list, I still do not know why... email me if you figure it out
+        for (String data: FQDNs){
             System.out.print(data + " ");
         }
         System.out.println();
@@ -151,6 +168,8 @@ public class ProcessFQDN {
             System.out.print(data + " ");
         }
         System.out.println();
+
+         */
     }
     /**
      *  This method returns true if the command line arguments are acceptable,
